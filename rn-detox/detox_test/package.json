@@ -1,0 +1,39 @@
+{
+  "name": "detox_test",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest",
+    "detox-e2e-build": "detox build",
+    "detox-e2e-test": "detox test",
+    "detox-clean": "detox clean-framework-cache && detox build-framework-cache"
+  },
+  "dependencies": {
+    "react": "16.8.3",
+    "react-native": "0.59.8"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.4.5",
+    "@babel/runtime": "^7.4.5",
+    "babel-jest": "^24.8.0",
+    "detox": "^12.10.2",
+    "jest": "^24.8.0",
+    "metro-react-native-babel-preset": "^0.54.1",
+    "react-test-renderer": "16.8.3"
+  },
+  "jest": {
+    "preset": "react-native"
+  },
+  "detox": {
+    "configurations": {
+      "ios.sim.debug": {
+        "binaryPath": "ios/build/Build/Products/Debug-iphonesimulator/detox_test.app",
+        "build": "xcodebuild -project ios/detox_test.xcodeproj -scheme detox_test -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
+        "type": "ios.simulator",
+        "name": "iPhone X"
+      }
+    },
+    "test-runner": "jest"
+  }
+}
