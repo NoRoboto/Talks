@@ -7,20 +7,36 @@
  */
 
 import React, {Component} from 'react';
-import {Button, StyleSheet, Text, View} from 'react-native';
+import {Button, StyleSheet, Text, View, TextInput} from 'react-native';
 
 type Props = {};
 export default class App extends Component<Props> {
+  state = {
+    text: ''
+  }
+
   render() {
     return (
       <View style={styles.container} testID='view-home'>
         <Text style={styles.welcome}>Detox TEST</Text>
         <Button
           title='Awesome Button!'
-          accessibilityLabel='useless btn'
+          accessibilityLabel='dummy_btn'
           testID='home-main-btn'
         />
-        <Text style={styles.instructions} testID='home-paragraph-text-1'>To get started, edit App.js</Text>
+        <TextInput
+          style={styles.textInput}
+          onChangeText={(text) => this.setState({text})}
+          value={this.state.text}
+          testID='home-primary-text-input'
+        />
+        {this.state.text.length > 3 &&
+          <Text style={styles.hideText}
+            testID='home-hiden-text'
+          >
+            Secret text!
+          </Text>
+        }
       </View>
     );
   }
@@ -38,9 +54,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
   },
-  instructions: {
+  hideText: {
+    fontSize: 10,
     textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
+    margin: 10,
+    color: 'red'
   },
+  textInput: {
+    width: '80%',
+    height: '5%', 
+    borderColor: 'gray', 
+    borderWidth: 1
+  }
 });
