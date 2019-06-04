@@ -1,9 +1,6 @@
 const { takeScreenshot } = require('./helper');
 
 describe('Example matchers', () => {
-  beforeEach(async () => {
-    await device.reloadReactNative();
-  });
 
   it('should have welcome screen', async () => {
     await expect(element(by.id('view-home'))).toBeVisible();
@@ -26,6 +23,7 @@ describe('Example actions', () => {
 
   it('should show the hidden ui element only if user type 3 or more string length on text input', async () => {
     await element(by.id('home-primary-text-input')).typeText('passcode');
+    takeScreenshot();
     await expect(element(by.id('home-hiden-text'))).toExist();
   });
 
