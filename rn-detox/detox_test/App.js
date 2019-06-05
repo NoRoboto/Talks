@@ -23,6 +23,11 @@ export default class App extends Component<Props> {
           title='Awesome Button!'
           accessibilityLabel='dummy_btn'
           testID='home-main-btn'
+          onPress={()=>{
+            this.setState({
+              text: "hola bebe"
+            });
+          }}
         />
         <TextInput
           style={styles.textInput}
