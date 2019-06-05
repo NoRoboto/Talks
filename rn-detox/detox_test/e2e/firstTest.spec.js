@@ -2,33 +2,34 @@ const { takeScreenshot } = require('./helper');
 
 describe('Example matchers', () => {
 
+  afterEach(async () => {
+    await device.reloadReactNative();
+  });
+
   it('should have welcome screen', async () => {
     await expect(element(by.id('view-home'))).toBeVisible();
   });
 
-  it('should select dummy_btn ui element using text matcher', async () => {
-    await expect(element(by.text('Detox TEST'))).toBeVisible();
+  it('2- should render la vida', async()=> {
+    await expect(element(by.text('Awesome Button!'))).toExist();
   });
 
-  it('should select dummy_btn ui element using label matcher', async () => {
-    await expect(element(by.label('dummy_btn'))).toBeVisible();
-  });
-});
-
-
-describe('Example actions', () => {
-  beforeEach(async () => {
-    await device.reloadReactNative();
+  it('3- should click button be clicked', async () => {
+    const button = element(by.text('Awesome Button!'));
+    const inputText = element(by.id('home-primary-text-input'));
+    await button.tap();
+    await expect(inputText).toHaveText("hola bebe");
   });
 
-  it('should show the hidden ui element only if user type 3 or more string length on text input', async () => {
-    await element(by.id('home-primary-text-input')).typeText('passcode');
+  it('4 --->', async () => {
+    const button = element(by.text('Awesome Button!'));
+    const inputText = element(by.id('home-primary-text-input'));
+    const errorText = element(by.id('home-hiden-text'));
+    await inputText.typeText("a");
     takeScreenshot();
-    await expect(element(by.id('home-hiden-text'))).toExist();
+    await expect(errorText).toNotExist();
+    await inputText.typeText("aaa");
+    await expect(errorText).toExist();
   });
-
-  it('should remove the ui element if the text input is empty', async () => {
-    await element(by.id('home-primary-text-input')).clearText();
-    await expect(element(by.id('home-hiden-text'))).toNotExist();
-  });
+ 
 });
